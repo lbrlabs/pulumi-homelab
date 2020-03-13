@@ -1,0 +1,30 @@
+config:
+  homelab-cluster:metallbChartVersion: 0.12.0
+  homelab-cluster:name: home.lbrlabs
+  homelab-cluster:nodes:
+  - address:
+      secure: AAABAI/Gku2EQ0luEyeOM3aBTx2+ZkZDsv4Rf+cYoRZIlSvLJ0rotLpzPFvzWd8B6KbOpR6dFQ==
+    roles:
+    - etcd
+    - worker
+    - controlplane
+    user: lbriggs
+  - address:
+      secure: AAABAGosJ+yub5VuVwrzhsHIlrKFs4V1IG6juyJvRnxr1B53t6mQBTDz0Q7CMw1AeFAzny8N
+    roles:
+    - etcd
+    - worker
+    - controlplane
+    user: lbriggs
+  - address:
+      secure: AAABACWhpCB7IVeVoOhlIA1gw0Huj/gY9A0/V6EPuegEJ9XY0qrLFzQEi8x5505EfkSRPeW4
+    roles:
+    - etcd
+    - worker
+    - controlplane
+    user: lbriggs
+  - address:
+      secure: AAABAAKwTZcFj5HVnG3KMwk+5QFcF2P4xebOQZg873kAlbqYpH/g/TH2HQaVhIpXuy5jtQIc7jo=
+    roles:
+    - worker
+    user: lbriggs

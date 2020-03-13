@@ -1,0 +1,9 @@
+name: homelab-cluster
+runtime: nodejs
+description: A Kubernetes cluster created by RKE for my homelab
+template:
+  config:
+    name:
+      description: "The name of your Kubernetes cluster"
+    nodes:
+      description: "Configuration for the RKE nodes"
