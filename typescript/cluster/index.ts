@@ -1,7 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as rke from "@jaxxstorm/pulumi-rke";
 import * as k8s from "@pulumi/kubernetes";
-import * as fs from "fs";
 
 // Get the config from the stack
 let config = new pulumi.Config()
@@ -9,6 +8,7 @@ let config = new pulumi.Config()
 // Cluster name is configurable
 const clusterName = config.require("name")
 const metallbChartVersion = config.require("metallbChartVersion")
+const address = config.require("metallbAddresses")
 
 // Define an interface to read the node config
 // We want the nodes to be configurable
@@ -39,9 +39,17 @@ export const kubeconfig = cluster.kubeConfigYaml
 // Set up metallb
 const provider = new k8s.Provider(clusterName, { kubeconfig });
 
+const addressConfig = {
+    "address-pools": [
+        { "name": "default", protocol: "layer2", addresses: ["192.168.1.240-192.168.1.250"] }
+    ]
+}
+
 const metallbConfig = new k8s.core.v1.ConfigMap("metallb-config", {
     metadata: { namespace: "kube-system" },
-    data: { "config": fs.readFileSync("metallb-config.yaml").toString() },
+    data: {
+        "config": JSON.stringify(addressConfig)
+    },
 });
 const metallbConfigName = metallbConfig.metadata.apply(m => m.name);
 
