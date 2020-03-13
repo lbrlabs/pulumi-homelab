@@ -1,0 +1,10 @@
+{
+    "name": "pulumi-homelab",
+    "devDependencies": {
+        "@types/node": "^8.0.0"
+    },
+    "dependencies": {
+        "@jaxxstorm/pulumi-rke": "0.0.1-dev.1584059127",
+        "@pulumi/pulumi": "^1.12.1"
+    }
+}

@@ -1,0 +1,3 @@
+name: pulumi-homelab
+runtime: nodejs
+description: Pulumi program to manage homelab infra
