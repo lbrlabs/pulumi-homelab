@@ -6,7 +6,7 @@ import * as k8s from "@pulumi/kubernetes";
 let config = new pulumi.Config()
 
 // Cluster name is configurable
-const clusterName = config.require("name")
+export const clusterName = config.require("name")
 const metallbChartVersion = config.require("metallbChartVersion")
 const address = config.require("metallbAddresses")
 
@@ -35,6 +35,7 @@ const cluster = new rke.Cluster(clusterName, {
 
 // export the kubeconfig for the cluster
 export const kubeconfig = cluster.kubeConfigYaml
+
 
 // Set up metallb
 const provider = new k8s.Provider(clusterName, { kubeconfig });
