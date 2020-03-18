@@ -30,12 +30,18 @@ const cluster = new rke.Cluster(clusterName, {
     ignoreDockerVersion: false,
     sshAgentAuth: true,
     nodes: nodes as any[], // cast the interface to an array
+    services: {
+        kubelet: {
+            extraBinds: [
+                "/data:/data"
+            ],
+        },
+    },
     ingress: { provider: "none" },
 });
 
 // export the kubeconfig for the cluster
 export const kubeconfig = cluster.kubeConfigYaml
-
 
 // Set up metallb
 const provider = new k8s.Provider(clusterName, { kubeconfig });
@@ -54,6 +60,22 @@ const metallbConfig = new k8s.core.v1.ConfigMap("metallb-config", {
 });
 const metallbConfigName = metallbConfig.metadata.apply(m => m.name);
 
+
+// configure the storageclass
+const sc = new k8s.storage.v1.StorageClass("default", {
+    metadata: {
+        name: "local",
+        annotations: {
+            "storageclass.kubernetes.io/is-default-class": "true"
+        },
+    },
+    provisioner: "kubernetes.io/no-provisioner",
+    volumeBindingMode: "WaitForFirstConsumer",
+    reclaimPolicy: "Delete",
+})
+
+
+
 const metallb = new k8s.helm.v2.Chart("metallb",
     {
         namespace: "kube-system",
@@ -66,7 +88,6 @@ const metallb = new k8s.helm.v2.Chart("metallb",
 );
 
 // set up nginx-ingress
-
 const nginx = new k8s.helm.v2.Chart("nginx-ingress",
     {
         namespace: "kube-system",
