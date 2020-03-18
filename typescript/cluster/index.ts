@@ -33,7 +33,7 @@ const cluster = new rke.Cluster(clusterName, {
     services: {
         kubelet: {
             extraBinds: [
-                "/data:/data"
+                "/mnt:/mnt"
             ],
         },
     },
