@@ -2,6 +2,11 @@ config:
   homelab-cluster:metallbAddresses: 192.168.1.240-192.168.1.250
   homelab-cluster:metallbChartVersion: 0.12.0
   homelab-cluster:name: home.lbrlabs
+  homelab-cluster:sans:
+  - k.vpn.lbrlabs.com
+  - k.home.lbrlabs.com
+  - kube.vpn.lbrlabs.com
+  - kube.home.lbrlabs.com
   homelab-cluster:nodes:
   - address:
       secure: AAABAI/Gku2EQ0luEyeOM3aBTx2+ZkZDsv4Rf+cYoRZIlSvLJ0rotLpzPFvzWd8B6KbOpR6dFQ==

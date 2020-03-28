@@ -20,8 +20,16 @@ interface Nodes {
     }
 }
 
+interface Sans {
+    [index: number]: {
+        addresses: string[];
+    }
+}
+
 // Grab the node config
 let nodes = config.requireObject<Nodes>("nodes");
+
+let sans = config.requireObject<Sans>("sans");
 
 
 // Create an RKE cluster!
@@ -30,6 +38,9 @@ const cluster = new rke.Cluster(clusterName, {
     ignoreDockerVersion: false,
     sshAgentAuth: true,
     nodes: nodes as any[], // cast the interface to an array
+    authentication: {
+        sans: sans as any[],
+    },
     services: {
         kubelet: {
             extraBinds: [
