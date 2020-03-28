@@ -1,7 +1,7 @@
 from pulumi import StackReference
 from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, LocalChartOpts
 from pulumi_kubernetes.provider import Provider
-from pulumi_kubernetes.core.v1 import PersistentVolume, Namespace
+from pulumi_kubernetes.core.v1 import PersistentVolume, PersistentVolumeList, Namespace
 from pulumi_kubernetes.yaml import ConfigFile
 
 
@@ -35,10 +35,17 @@ Chart("local-volume-provisioner", LocalChartOpts(
 ConfigFile("rook-nfs-operator",
            "https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/nfs/operator.yaml")
 
+pv = PersistentVolume.get("volume", "local-pv-c10e0f4d")
+pvl = PersistentVolumeList.get("volumes", "")
+
 
 def set_pvc_rwo(obj):
     if obj['kind'] == "PersistentVolumeClaim" and obj['spec']['accessModes'][0] == "ReadWriteMany":
         obj['spec']['accessModes'][0] = "ReadWriteOnce"
+
+def set_volume(obj):
+    if obj['kind'] == "PersistentVolumeClaim":
+        obj['spec']['volumeName'] = pv # FIXME: make this configurable
 
 
 ConfigFile("rook-nfs-server",
