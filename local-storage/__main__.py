@@ -2,6 +2,7 @@ import pulumi
 import pulumi_kubernetes as k8s
 import pulumi_kubernetes.helm.v3 as helm
 from pulumi_kubernetes.core.v1 import Namespace
+from pulumi_kubernetes.storage.v1 import StorageClass
 
 # Get the stack
 stack = pulumi.StackReference("jaxxstorm/cluster/homelab")
@@ -39,5 +40,14 @@ helm.Chart("local-volume-provisioner", helm.LocalChartOpts(
         ]
     }
 ))
+
+sc = StorageClass("local", 
+    metadata={
+        "name": "local",
+    },
+    provisioner="kubernetes.io/no-provisioner",
+    volume_binding_mode="WaitForFirstConsumer",
+    reclaim_policy="Delete",
+)
 
 
