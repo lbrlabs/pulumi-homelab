@@ -5,10 +5,10 @@
     },
     "dependencies": {
         "@jaxxstorm/pulumi-rke": "0.0.1-dev.1584059127",
-        "@pulumi/kubernetes": "^1.5.7",
-        "@pulumi/pulumi": "^1.12.1",
-        "@types/js-yaml": "^3.12.2",
+        "@pulumi/kubernetes": "^1.6.0",
+        "@pulumi/pulumi": "^1.13.1",
+        "@types/js-yaml": "^3.12.3",
         "js-yaml": "^3.13.1",
-        "yaml": "^1.8.2"
+        "yaml": "^1.8.3"
     }
 }

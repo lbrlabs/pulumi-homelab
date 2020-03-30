@@ -1,6 +1,6 @@
-name: homelab-cluster
+name: cluster
 runtime: nodejs
-description: A Kubernetes cluster created by RKE for my homelab
+description: RKE Cluster
 template:
   config:
     name:

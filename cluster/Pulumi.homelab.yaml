@@ -1,0 +1,34 @@
+config:
+  cluster:name: home.lbrlabs
+  cluster:nodes:
+  - address:
+      secure: AAABAOPL0GAg6FDv2J2i1cmk4QY9kJh0/8CyrJOsKnecBKTXkCPsmxiAtG1/usmtI/QMJON7SQ==
+    roles:
+    - etcd
+    - worker
+    - controlplane
+    user: lbriggs
+  - address:
+      secure: AAABAMtrRxOE0XvBTReEbG+AXCn/N7qVZluns+hi9Yrc+7S7Z3cl4WnjPC2EX4XleV9MmCls
+    roles:
+    - etcd
+    - worker
+    - controlplane
+    user: lbriggs
+  - address:
+      secure: AAABAO8I4iZ3DhNCV0ClJsH1JNLpyqEtknOx8gPjYj8PnRyKHwDjA023Xq+SeLWiv6obOnYS
+    roles:
+    - etcd
+    - worker
+    - controlplane
+    user: lbriggs
+  - address:
+      secure: AAABABNqAxdlIUjBy26ia/nfRWKwql6dF9Q2RE7htEHCW/AQgY7IPKdwNDjIudsy6CdZrHU+fyU=
+    roles:
+    - worker
+    user: lbriggs
+  cluster:sans:
+  - k.vpn.lbrlabs.com
+  - k.home.lbrlabs.com
+  - kube.vpn.lbrlabs.com
+  - kube.home.lbrlabs.com

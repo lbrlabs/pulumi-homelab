@@ -1,0 +1,2 @@
+config:
+  nginx-ingress:namespace: nginx-ingress

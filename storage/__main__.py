@@ -35,9 +35,6 @@ Chart("local-volume-provisioner", LocalChartOpts(
 ConfigFile("rook-nfs-operator",
            "https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/nfs/operator.yaml")
 
-pv = PersistentVolume.get("volume", "local-pv-c10e0f4d")
-pvl = PersistentVolumeList.get("volumes", "")
-
 
 def set_pvc_rwo(obj):
     if obj['kind'] == "PersistentVolumeClaim" and obj['spec']['accessModes'][0] == "ReadWriteMany":
@@ -47,7 +44,11 @@ def set_volume(obj):
     if obj['kind'] == "PersistentVolumeClaim":
         obj['spec']['volumeName'] = pv # FIXME: make this configurable
 
+def set_volume_size(obj):
+    if obj['kind'] == "PersistentVolumeClaim":
+        obj['spec']['resources']['requests']['storage'] = '200Gi'
+
 
 ConfigFile("rook-nfs-server",
            "https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/nfs/nfs.yaml",
-           transformations=[set_pvc_rwo])
+           transformations=[set_pvc_rwo,set_volume_size])
