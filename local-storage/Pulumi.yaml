@@ -1,0 +1,3 @@
+name: local-storage
+runtime: python
+description: Local storage provisioner and StorageClass

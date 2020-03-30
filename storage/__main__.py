@@ -5,7 +5,7 @@ from pulumi_kubernetes.core.v1 import PersistentVolume, PersistentVolumeList, Na
 from pulumi_kubernetes.yaml import ConfigFile
 
 
-stack = StackReference("jaxxstorm/homelab-cluster/homelab")
+stack = StackReference("jaxxstorm/homelab/cluster")
 
 kubeconfig = stack.get_output("kubeconfig")
 # clusterName = stack.get_output("clusterName")
