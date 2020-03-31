@@ -5,9 +5,11 @@ import * as kx from "@pulumi/kubernetesx";
 
 // Get the config from the stack
 let config = new pulumi.Config()
+const stack = pulumi.getStack()
+const stackRef = `jaxxstorm/cluster/${stack}`;
 
 // Get stack references
-const cluster = new pulumi.StackReference("jaxxstorm/cluster/homelab"); // # FIXME: make configurable
+const cluster = new pulumi.StackReference(stackRef); // # FIXME: make configurable
 const provider = new k8s.Provider("k8s", { kubeconfig: cluster.getOutput("kubeConfig") });
 
 // Set configuration values
