@@ -22,7 +22,10 @@ provider = k8s.Provider(
 # Create the namespace
 ns = Namespace("ns", metadata={
     "name": "local-storage",
-})
+    },
+    opts=pulumi.ResourceOptions(provider=provider),
+
+)
 
 # Install the helm chart
 helm.Chart("local-volume-provisioner", helm.LocalChartOpts(
@@ -39,12 +42,14 @@ helm.Chart("local-volume-provisioner", helm.LocalChartOpts(
             }
         ]
     }
-))
+    ), pulumi.ResourceOptions(provider=provider) 
+)
 
 sc = StorageClass("local", 
     metadata={
         "name": "local",
     },
+    opts=pulumi.ResourceOptions(provider=provider),
     provisioner="kubernetes.io/no-provisioner",
     volume_binding_mode="WaitForFirstConsumer",
     reclaim_policy="Delete",

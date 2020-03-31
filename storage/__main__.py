@@ -5,37 +5,6 @@ from pulumi_kubernetes.core.v1 import PersistentVolume, PersistentVolumeList, Na
 from pulumi_kubernetes.yaml import ConfigFile
 
 
-stack = StackReference("jaxxstorm/homelab/cluster")
-
-kubeconfig = stack.get_output("kubeconfig")
-# clusterName = stack.get_output("clusterName")
-
-
-provider = Provider(
-    "home.lbrlabs",
-    kubeconfig=kubeconfig
-)
-
-Chart("local-volume-provisioner", LocalChartOpts(
-    path="charts/provisioner",
-    namespace="kube-system",
-    values={
-        "classes": [
-            {
-                "name": 'local',
-                "hostDir": "/mnt/",
-                "mountDir": "/mnt/k8s",
-                "volumeMode": "Filesystem",
-                "fsType": "ext4",
-            }
-        ]
-    }
-))
-
-ConfigFile("rook-nfs-operator",
-           "https://raw.githubusercontent.com/rook/rook/master/cluster/examples/kubernetes/nfs/operator.yaml")
-
-
 def set_pvc_rwo(obj):
     if obj['kind'] == "PersistentVolumeClaim" and obj['spec']['accessModes'][0] == "ReadWriteMany":
         obj['spec']['accessModes'][0] = "ReadWriteOnce"

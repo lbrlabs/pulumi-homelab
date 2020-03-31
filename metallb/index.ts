@@ -32,7 +32,7 @@ const metallbConfig = new k8s.core.v1.ConfigMap("metallb-config", {
     data: {
         "config": JSON.stringify(addressConfig)
     },
-});
+}, { provider: provider });
 const metallbConfigName = metallbConfig.metadata.apply(m => m.name);
 
 const metallb = new k8s.helm.v2.Chart("metallb",

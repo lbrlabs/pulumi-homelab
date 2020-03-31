@@ -54,4 +54,3 @@ const cluster = new rke.Cluster(clusterName, {
 // export the kubeconfig for the cluster
 export const kubeConfig = cluster.kubeConfigYaml
 
-

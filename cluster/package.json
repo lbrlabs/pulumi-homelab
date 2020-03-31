@@ -4,7 +4,7 @@
         "@types/node": "^8.0.0"
     },
     "dependencies": {
-        "@jaxxstorm/pulumi-rke": "0.0.1-dev.1584059127",
+        "@jaxxstorm/pulumi-rke": "0.2.0",
         "@pulumi/kubernetes": "^1.6.0",
         "@pulumi/pulumi": "^1.13.1",
         "@types/js-yaml": "^3.12.3",

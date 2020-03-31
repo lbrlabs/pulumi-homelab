@@ -2,28 +2,28 @@ config:
   cluster:name: home.lbrlabs
   cluster:nodes:
   - address:
-      secure: AAABAOPL0GAg6FDv2J2i1cmk4QY9kJh0/8CyrJOsKnecBKTXkCPsmxiAtG1/usmtI/QMJON7SQ==
-    roles:
-    - etcd
+      secure: AAABAOfgjzb586w1x2qHp1sp0FPJCZA7DhVAeHHdR5Ycy3XEJDa4mIlhvQ+SbOUrt/XsejsDaQ==
+    roles: 
     - worker
+    - etcd
     - controlplane
     user: lbriggs
   - address:
-      secure: AAABAMtrRxOE0XvBTReEbG+AXCn/N7qVZluns+hi9Yrc+7S7Z3cl4WnjPC2EX4XleV9MmCls
+      secure: AAABAMtFAvR641Eb2KbJY1Po3W1UBcfjBG/niHTWrYEJjwUanwJ93UujnRa9kPeAEvaYnbkO
     roles:
-    - etcd
     - worker
+    - etcd
     - controlplane
     user: lbriggs
   - address:
-      secure: AAABAO8I4iZ3DhNCV0ClJsH1JNLpyqEtknOx8gPjYj8PnRyKHwDjA023Xq+SeLWiv6obOnYS
-    roles:
-    - etcd
-    - worker
-    - controlplane
+      secure: AAABAGa8QtfiQx96XXh8bNStpfkfctzjP0a3Gn/THD4CSmszolZF02GYvv/VBZ8mQfp/L5hz
     user: lbriggs
+    roles:
+    - worker
+    - etcd
+    - controlplane
   - address:
-      secure: AAABABNqAxdlIUjBy26ia/nfRWKwql6dF9Q2RE7htEHCW/AQgY7IPKdwNDjIudsy6CdZrHU+fyU=
+      secure: AAABAIwxr/uehV7Uwhac2gS2MXpwYNGufR4D2Tup/4LiSEHF6SokKTw6sr9qhG34jKQjY4xC7ok=
     roles:
     - worker
     user: lbriggs
