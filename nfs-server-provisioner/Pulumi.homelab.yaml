@@ -1,0 +1,2 @@
+config:
+  nfs-server-provisioner:namespace: nfs-server-provisioner
