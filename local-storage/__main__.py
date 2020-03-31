@@ -5,13 +5,15 @@ from pulumi_kubernetes.core.v1 import Namespace
 from pulumi_kubernetes.storage.v1 import StorageClass
 
 # Get the stack
-stack = pulumi.StackReference("jaxxstorm/cluster/homelab")
+stack = pulumi.get_stack()
+sr = "jaxxstorm/cluster/{}".format(stack)
+stack_ref = pulumi.StackReference(sr)
 # Get the kubeconfig from the stack
-kubeconfig = stack.get_output("kubeConfig")
+kubeconfig = stack_ref.get_output("kubeConfig")
 
 # Get configuration options
 config = pulumi.Config()
-namespace = config.get("namespace")
+namespace = config.require("namespace")
 
 # Set up the provider
 provider = k8s.Provider(
@@ -21,7 +23,7 @@ provider = k8s.Provider(
 
 # Create the namespace
 ns = Namespace("ns", metadata={
-    "name": "local-storage",
+    "name": namespace,
     },
     opts=pulumi.ResourceOptions(provider=provider),
 
