@@ -28,21 +28,17 @@ const nginx = new k8s.helm.v2.Chart("nginx-ingress",
         version: "1.33.5",
         fetchOpts: { repo: "https://kubernetes-charts.storage.googleapis.com/" },
         values: {
-            stats: {
-                enabled: true,
+            controller: {
+                service: {
+                    type: "LoadBalancer",
+                },
+                publishService: {
+                    enabled: true,
+                },
+                metrics: {
+                    enabled: true,
+                },
             },
-            service: {
-                type: "LoadBalancer",
-            },
-            publishService: {
-                enabled: true,
-            },
-            metrics: {
-                enabled: true,
-            },
-            extraArgs: {
-                "sort-backends": true,
-            }
         }
     },
     { providers: { kubernetes: provider } },

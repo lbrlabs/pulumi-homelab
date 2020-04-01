@@ -38,6 +38,7 @@ helm.Chart("external-dns", helm.LocalChartOpts(
         "provider": "cloudflare",
         "cloudflare": {
             "apiToken": api_token,
+            "proxied": False,
         },
         "txtOwnerId": "home.lbrlabs",
     },
