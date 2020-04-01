@@ -32,6 +32,9 @@ const metallb = new k8s.helm.v2.Chart("metallb",
          fetchOpts: { repo: "https://argoproj.github.io/argo-helm" },
          values: {  
             installCRDs: false,
+            dex: {
+                enabled: false,
+            },
             server: {
                 ingress: {
                     enabled: true,
@@ -44,6 +47,15 @@ const metallb = new k8s.helm.v2.Chart("metallb",
                 }
             }
          },
+         // The helm chart is using a deprecated apiVersion,
+         // So let's transform it
+         transformations: [
+            (obj: any) => {
+                if (obj.apiVersion == "extensions/v1beta1")  {
+                    obj.apiVersion = "networking.k8s.io/v1beta1"
+                }
+            },
+         ],
      },
      { providers: { kubernetes: provider }, dependsOn: [app, proj, namespace] },
  );
