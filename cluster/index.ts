@@ -36,7 +36,7 @@ const cluster = new rke.Cluster(clusterName, {
     sshAgentAuth: true,
     nodes: nodes as any[], // cast the interface to an array
     network: {
-        plugin: 'calico',
+        plugin: 'canal',
     },
     authentication: {
         sans: sans as any[],

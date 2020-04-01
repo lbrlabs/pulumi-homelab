@@ -1,2 +1,10 @@
 config:
+  argocd:argocdAdminEmail:
+    secure: AAABAIV778TkjqQVjPTmaoK6eeWbNqSwz+PLfe84FZIulPabTqwbNSsNcH+HLfEC106l
+  argocd:auth0Domain: lbrlabs.auth0.com
+  argocd:clientID:
+    secure: AAABAMtxF0zbb5dNmvDypoqDSKkqEtqGZlRGAAx5wOHP9V24e06hhCV6pwcVtyfIwTxDdBlms6ZxDZtyOaT72A==
+  argocd:clientSecret:
+    secure: AAABAE17YfJcMUWkOk9yeJ6RXlDL9RQyNdnsOBzpGWiPpTkkkgI1Z9YmjZ8+C+0MupEnoyFF1vXoOabRmEujEBts9FV+iA5gr+Ry63zwrfw52Rfq6HZH7WvTLFrUec2d
   argocd:namespace: argocd
+  argocd:uri: argocd.home.lbrlabs.com

@@ -13,6 +13,11 @@ const cluster = new pulumi.StackReference(stackRef); // # FIXME: make configurab
 const provider = new k8s.Provider("k8s", { kubeconfig: cluster.getOutput("kubeConfig") });
 
 const ns = config.require("namespace")
+const uri = config.require("uri")
+const clientID = config.require("clientID")
+const clientSecret = config.require("clientSecret")
+const auth0Domain = config.require("auth0Domain")
+const argocdAdminEmail = config.require("argocdAdminEmail")
 
 // We grab the configfile at a specific commit because we don't want the
 // CRD to change until the helm chart does
@@ -25,6 +30,15 @@ const namespace = new k8s.core.v1.Namespace("ns", {
     }
 }, { provider: provider });
 
+// oidc config
+const oidcConfig = {
+    name: "Auth0",
+    issuer: `https://${auth0Domain}/`,
+    clientID: clientID, // FIXME: Set this to a secret
+    clientSecret: clientSecret, // FIXME: Set this to a secret
+    requestedScopes: [ "openid", "profile", "email", `http://${auth0Domain}/groups` ]
+}
+
 const metallb = new k8s.helm.v2.Chart("metallb",
      {
          namespace: namespace.metadata.name,
@@ -36,15 +50,20 @@ const metallb = new k8s.helm.v2.Chart("metallb",
                 enabled: false,
             },
             server: {
-                ingress: {
-                    enabled: true,
-                    hosts: [
-                        "argocd.home.lbrlabs.com",
-                    ],
-                    annotations: {
-                        "kubernetes.io/ingress.class": "nginx",
-                    }
-                }
+                config: {
+                    url: `https://${uri}`,
+                    "oidc.config": JSON.stringify(oidcConfig),
+                },
+               service: {
+                   type: 'LoadBalancer',
+                   annotations: {
+                    "external-dns.alpha.kubernetes.io/hostname": uri,
+                   },
+               },
+               rbacConfig: {
+                   scopes: `[ http://${auth0Domain}/groups, email ]`,
+                   "policy.csv": `g, ${argocdAdminEmail}, role:admin`
+               }
             }
          },
          // The helm chart is using a deprecated apiVersion,
