@@ -2,6 +2,7 @@ import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
 
 import * as kx from "@pulumi/kubernetesx";
+import * as fs from "fs";
 
 // Get the config from the stack
 let config = new pulumi.Config()

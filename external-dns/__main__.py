@@ -31,8 +31,8 @@ ns = Namespace("ns", metadata={
 )
 
 # Install the helm chart
-helm.Chart("external-dns", helm.LocalChartOpts(
-    path="charts/external-dns",
+helm.Chart("external-dns", helm.ChartOpts(
+    chart="external-dns",
     namespace=ns.metadata["name"],
     values={
         "provider": "cloudflare",
@@ -42,6 +42,9 @@ helm.Chart("external-dns", helm.LocalChartOpts(
         },
         "txtOwnerId": "home.lbrlabs",
     },
+    fetch_opts=helm.FetchOpts(
+        repo="https://charts.bitnami.com/bitnami"
+    ),
     ), pulumi.ResourceOptions(provider=provider) 
 )
 
