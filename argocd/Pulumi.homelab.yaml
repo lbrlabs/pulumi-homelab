@@ -7,4 +7,3 @@ config:
   argocd:clientSecret:
     secure: AAABAE17YfJcMUWkOk9yeJ6RXlDL9RQyNdnsOBzpGWiPpTkkkgI1Z9YmjZ8+C+0MupEnoyFF1vXoOabRmEujEBts9FV+iA5gr+Ry63zwrfw52Rfq6HZH7WvTLFrUec2d
   argocd:namespace: argocd
-  argocd:uri: argocd.home.lbrlabs.com
