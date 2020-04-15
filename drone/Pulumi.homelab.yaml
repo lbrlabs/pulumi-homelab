@@ -1,0 +1,10 @@
+config:
+  drone:githubClientId:
+    secure: AAABAGZuXCXPN8GSy1+3BDBKG5U+VOteku/Gn4GQuuPOgEl1U+FNxvPNMsOokUiaaeOe5A==
+  drone:githubClientSecret:
+    secure: AAABAAhxSfcT/sugRga8uibsMXmYSSABu2PpzWL2/eVJwDmv81GJ74yTQaShWZRELDPpr+8H0N/ilCQPqk5jJ6svuj9E3YJr
+  drone:hostUri:
+    secure: AAABAFCIiEvkc+ri57jnDkxYJi8cFKJpWM9rUKq2z7bGr21DouEjo7Z8zmXMcRKD9SLVgeBP
+  drone:namespace: drone
+  drone:rpcSecret:
+    secure: AAABAHH1TGjhd+mhM09SvTpKmwb4EwqKKIs8ZkOi3J1zG1Y2P0NYNcqkP+B7MF4WX+p0uqTT11k//68ryfJasg==
