@@ -29,6 +29,9 @@ const droneRunner = new k8s.helm.v2.Chart("drone-runner",
         version: "0.1.2",
         fetchOpts: { repo: "https://charts.drone.io" },
         values: {
+            rbac: {
+                buildNamespaces: [ namespace.metadata.name ]
+            },
             env: {
                 DRONE_RPC_SECRET: rpcSecret,
                 DRONE_RPC_HOST: hostUri,
