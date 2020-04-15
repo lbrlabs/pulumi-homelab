@@ -1,3 +1,0 @@
-name: nginx-ingress
-runtime: nodejs
-description: nginx ingress controller for cluster

@@ -1,4 +1,0 @@
-config:
-  external-dns:api_token:
-    secure: AAABAMPs8kU61HcYfs4MnPOd7FGOMPlwCv5zgwTrdCbHSQcTr+gVMGbVwTaU8bv9VZs4ROGo8+KczfIZOIxeslM32fPIN9CS
-  external-dns:namespace: external-dns

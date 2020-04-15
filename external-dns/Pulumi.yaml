@@ -1,3 +1,0 @@
-name: external-dns
-runtime: python
-description: External DNS installation
