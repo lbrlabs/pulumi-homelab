@@ -15,8 +15,6 @@ const ns = config.require("namespace")
 const rpcSecret = config.require("rpcSecret")
 const hostUri = config.require("hostUri")
 const httpProtocol = config.get("httpProtocol") || "https";
-const githubClientId = config.require("githubClientId")
-const githubClientSecret = config.require("githubClientSecret")
 
 const namespace = new k8s.core.v1.Namespace("ns", {
     metadata: {
@@ -24,38 +22,7 @@ const namespace = new k8s.core.v1.Namespace("ns", {
     }
 }, { provider: provider });
 
-const drone = new k8s.helm.v2.Chart("drone",
-     {
-         namespace: namespace.metadata.name,
-         chart: "drone",
-         version: "0.1.5",
-         fetchOpts: { repo: "https://charts.drone.io" },
-         values: { 
-             env: {
-                DRONE_SERVER_HOST: hostUri,
-                DRONE_SERVER_PROTO: httpProtocol,
-                DRONE_RPC_SECRET: rpcSecret,
-                DRONE_GITHUB_CLIENT_ID: githubClientId,
-                DRONE_GITHUB_CLIENT_SECRET: githubClientSecret,
-             },
-             ingress: {
-                 enabled: true,
-                 annotations: {
-                    "kubernetes.io/ingress.class": "nginx"
-                 },
-                 hosts: [
-                     { host: hostUri, paths: [ "/" ] }
-                 ],
-                 tls: [
-                    { hosts: [ hostUri ] }
-                 ]
-             }
-         },
-     },
-     { providers: { kubernetes: provider } },
- );
-
- const droneRunner = new k8s.helm.v2.Chart("drone-runner",
+const droneRunner = new k8s.helm.v2.Chart("drone-runner",
      {
         namespace: namespace.metadata.name,
         chart: "drone-runner-kube",
